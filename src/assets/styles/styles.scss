@@ -1,0 +1,11 @@
+@use "normalize";
+@use "mixins";
+@use "variables";
+@use "utils";
+@use "globals";
+
+@use "../../components/Square/square";
+@use "../../components/Board/board";
+@use "../../components/Game/game";
+
+// @use "media";

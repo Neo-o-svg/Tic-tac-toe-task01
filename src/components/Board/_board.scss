@@ -1,0 +1,78 @@
+@use "../../assets/styles/mixins" as mix;
+
+.board-wrapper {
+  @include mix.flex-center;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.status {
+  font-size: clamp(18px, 3vw, 32px);
+  font-weight: 600;
+  color: var(--yellow-orange);
+  letter-spacing: 0.05em;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+
+  background: linear-gradient(
+    90deg,
+    var(--light-yellow),
+    var(--yellow-orange) 40%,
+    var(--red) 80%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 0.6px var(--dark-stroke);
+
+  text-shadow: 0 0 6px var(--red-shadow-1),
+               0 0 12px var(--yellow-shadow-1);
+
+  opacity: 0;
+  transform: scale(0.9) translateY(6px);
+  animation: statusAppear 1.4s cubic-bezier(0.2, 0.9, 0.2, 1) forwards,
+             statusGlow 3.2s 1.4s ease-in-out infinite;
+}
+
+.board__row {
+  &:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
+
+/* --- keyframes --- */
+
+@keyframes statusAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.9) translateY(6px);
+    filter: blur(2px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(0);
+    filter: blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes statusGlow {
+  0%, 100% {
+    text-shadow: 0 0 6px var(--red-shadow-1),
+                 0 0 12px var(--yellow-shadow-1);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 12px var(--red-shadow-2),
+                 0 0 24px var(--yellow-shadow-2);
+    transform: scale(1.02);
+  }
+}

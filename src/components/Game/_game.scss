@@ -1,0 +1,216 @@
+@use "../../assets/styles/mixins" as mix;
+
+.game__wrapper {
+  padding: 20px 10px;
+  background-color: var(--black-overlay);
+  min-height: 100vh;
+}
+
+.game__title {
+  font-weight: 700;
+  font-size: clamp(26px, 9vw, 66px);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 4rem;
+  position: relative;
+  letter-spacing: 0.02em;
+  text-transform: none;
+
+  -webkit-text-stroke: 1.6px var(--dark-stroke);
+  color: transparent;
+
+  background: linear-gradient(
+    90deg,
+    var(--gold1),
+    var(--gold2) 40%,
+    var(--red1) 70%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  text-shadow: 0.08em 0.06em 0 rgba(0, 0, 0, 0.55),
+    0.02em 0.02em 0.6em var(--red-shadow-1);
+
+  transform-origin: left center;
+  animation: brushFill 2.4s cubic-bezier(0.2, 0.9, 0.2, 1) forwards,
+    lanternFlicker 3.2s infinite both;
+  -webkit-font-smoothing: antialiased;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    background: linear-gradient(
+      90deg,
+      var(--dark-stroke-light) 0 20%,
+      var(--dark-stroke-medium) 20% 40%,
+      var(--dark-stroke-soft) 60%,
+      transparent 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    mix-blend-mode: multiply;
+    transform: translateX(-105%) skewX(-6deg);
+    filter: blur(0.4px);
+    animation: brushSweep 2.4s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+  }
+
+  &::after {
+    content: "印";
+    position: absolute;
+    bottom: -0.15em;
+
+    background: linear-gradient(
+      180deg,
+      var(--stamp-grad-start),
+      var(--stamp-grad-end)
+    );
+    color: var(--stamp-color);
+    font-size: 0.36em;
+    padding: 0.08em 0.18em;
+    border-radius: 3px;
+    box-shadow: 0 0.08em 0.18em rgba(0, 0, 0, 0.45),
+      inset 0 0 0.6em rgba(255, 255, 255, 0.03);
+    transform: rotate(-12deg) scale(0.96);
+    opacity: 0;
+    animation: stampIn 0.6s 2.2s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.game__players-imgs {
+  @include mix.flex-center();
+  column-gap: 4rem;
+  margin-bottom: 3rem;
+
+  & img {
+    width: 200px;
+    height: 200px;
+    opacity: 0.6;
+    transition: all 0.4s ease;
+    filter: grayscale(100%);
+
+    &.active {
+      opacity: 1;
+      filter: grayscale(0%) drop-shadow(0 0 20px var(--white));
+      transform: scale(1.05);
+      animation: pulse 1.5s infinite;
+    }
+
+    &.winner {
+      opacity: 1;
+      filter: drop-shadow(0 0 25px gold);
+      transform: scale(1.2) rotate(3deg);
+      animation: winner-glow 1s infinite alternate;
+    }
+
+    &.draw {
+      border: 2px solid var(--red1);
+      border-radius: 50%;
+      opacity: 0.8;
+      filter: grayscale(0%);
+    }
+  }
+}
+
+.game__content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.game__move-list {
+  @include mix.flex-center();
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+
+  & li {
+    & button {
+      position: relative;
+      display: inline-block;
+      padding: 0.7em 2.2em;
+      margin-top: 1.6rem;
+      font-size: clamp(10px, 2.6vw, 20px);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--btn-text);
+      text-transform: uppercase;
+      background: linear-gradient(
+        180deg,
+        var(--btn-grad-start) 0%,
+        var(--btn-grad-end) 100%
+      );
+      border: 2px solid var(--btn-border);
+      border-radius: 0.8em;
+      cursor: pointer;
+      box-shadow: 0 0 8px var(--red-shadow-1),
+        inset 0 0 10px var(--yellow-shadow);
+      overflow: hidden;
+      transition: all 0.3s ease;
+      transform: scale(0.95);
+      animation: btnAppear 1.6s 0.5s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(
+          circle at 50% 50%,
+          var(--btn-light),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: 0;
+      }
+
+      &:hover {
+        color: var(--btn-hover-text);
+        box-shadow: 0 0 10px var(--red-shadow-1), 0 0 20px var(--yellow-shadow),
+          inset 0 0 14px var(--yellow-shadow);
+        transform: scale(1.02);
+      }
+
+      &:hover::before {
+        opacity: 1;
+      }
+
+      &:active {
+        transform: scale(0.95);
+        background: linear-gradient(
+          180deg,
+          var(--btn-grad-active-start) 0%,
+          var(--btn-grad-active-end) 100%
+        );
+        box-shadow: inset 0 0 16px var(--yellow-shadow),
+          0 0 6px var(--red-shadow-1);
+      }
+
+      &::after {
+        content: "印";
+        position: absolute;
+        right: 0.6em;
+        bottom: 0.2em;
+        font-size: 0.9em;
+        color: var(--stamp-color-btn);
+        background: var(--stamp-bg);
+        padding: 0.08em 0.18em;
+        border-radius: 2px;
+        transform: rotate(-12deg) scale(0.8);
+        opacity: 0;
+        transition: opacity 0.6s ease 0.3s;
+      }
+
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+  }
+}

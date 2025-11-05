@@ -1,0 +1,71 @@
+:root {
+  /* Base Colors */
+  --white: #fff;
+  --black: #000;
+  --gray-900: #1e212c;
+  --gray-800: #424551;
+  --gray-700: #787a80;
+  --gray-600: #9a9ca5;
+  --gray-500: #b3b7bc;
+  --gray-400: #d7dadd;
+  --gray-300: #e5e8ed;
+  --gray-200: #f4f5f6;
+
+  --orange: #ff5a30;
+  --warning: #f89828;
+  --pink: #f52f6e;
+  --blue: #5a87fc;
+  --green: #03cea4;
+
+  --bg-color: var(--gray-900);
+  --bg-text: #0b0a07;
+  --dark: #0a0703;
+
+  /* Gold / Red Palette */
+  --gold1: #f8d47a;
+  --gold2: #f2a63a;
+  --light-yellow: var(--gold1);
+  --yellow-orange: var(--gold2);
+  --red1: #e93b2b;
+  --red: var(--red1);
+
+  /* Overlay / Stroke */
+  --black-overlay: rgba(0, 0, 0, 0.3);
+  --dark-stroke: rgba(6, 4, 3, 0.85);
+  --dark-stroke-light: rgba(6, 4, 3, 0.98);
+  --dark-stroke-medium: rgba(6, 4, 3, 0.85);
+  --dark-stroke-soft: rgba(6, 4, 3, 0.25);
+
+  /* Shadows */
+  --red-shadow-1: rgba(233, 59, 43, 0.06);
+  --red-shadow-2: rgba(233, 59, 43, 0.05);
+  --yellow-shadow: rgba(242, 166, 58, 0.06);
+  --red-shadow-1-heavy: rgba(233, 59, 43, 0.25);
+  --yellow-shadow-1-heavy: rgba(242, 166, 58, 0.15);
+  --red-shadow-2-heavy: rgba(233, 59, 43, 0.45);
+  --yellow-shadow-2-heavy: rgba(242, 166, 58, 0.3);
+
+  /* Buttons */
+  --btn-text: #fff8e7;
+  --btn-grad-start: #b72a1f;
+  --btn-grad-end: #801d16;
+  --btn-border: #d87a2f;
+  --btn-hover-text: #fff3d9;
+  --btn-light: rgba(255, 200, 90, 0.25);
+  --btn-grad-active-start: #901b13;
+  --btn-grad-active-end: #6a140f;
+
+  /* Stamp */
+  --stamp-grad-start: #b92b1f;
+  --stamp-grad-end: #d8472e;
+  --stamp-color: rgba(255, 240, 235, 0.95);
+  --stamp-bg: rgba(166, 28, 18, 0.8);
+  --stamp-color-btn: rgba(255, 240, 230, 0.85);
+
+  /* Font Family */
+  font-family: "Noto Serif SC", "ZCOOL KuaiLe", serif;
+
+  /* Container */
+  --container-width: 1230px;
+  --container-padding-x: 15px;
+}
