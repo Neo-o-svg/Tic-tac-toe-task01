@@ -25,7 +25,7 @@
 1. Клонируйте репозиторий:
 
 ```bash
-git clone https://github.com/Neo-o-svg/Tic-tac-toe-task-01-.git
+git clone https://github.com/Neo-o-svg/Tic-tac-toe-task-01.git
 ```
 
 2. Перейдите в папку проекта:
