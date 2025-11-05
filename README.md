@@ -1,8 +1,6 @@
 
 # Tic Tac Toe - React
 
-![Tic Tac Toe](https://user-images.githubusercontent.com/placeholder/tictactoe-screenshot.png)
-
 Простой проект **крестики-нолики**, реализованный на **React**.
 
 ## Описание
