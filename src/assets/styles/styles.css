@@ -479,4 +479,22 @@ h4 .h4 {
 }
 .game__move-list li button:hover::after {
   opacity: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .game__players-imgs img {
+    width: 100px;
+    height: 100px;
+  }
+  .square {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .game__move-list li button {
+    padding: 0.5em 1.8em;
+    margin-top: 1rem;
+    border-radius: 0.8em;
+  }
 }/*# sourceMappingURL=styles.css.map */

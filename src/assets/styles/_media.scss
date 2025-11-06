@@ -1,3 +1,27 @@
-// @use "../styles/mixins" as mix;
+@use "../styles/mixins" as mix;
 
-// @media only screen and (max-width: 1600px) {
+@media only screen and (max-width: 768px) {
+  .game__players-imgs {
+    & img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .square {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .game__move-list {
+    & li {
+      & button {
+        padding: 0.5em 1.8em;
+        margin-top: 1rem;
+        border-radius: 0.8em;
+      }
+    }
+  }
+}
