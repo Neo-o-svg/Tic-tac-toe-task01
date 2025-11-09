@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Board, { calculateWinner } from "../Board/Board";
 import type { SquareValue } from "../Square/Square";
 
@@ -8,10 +8,18 @@ function isDraw(squares: SquareValue[]): boolean {
   );
 }
 
+function getRandomMove(squares: SquareValue[]): number {
+  const emptyIndices = squares
+    .map((value, index) => (value === null ? index : null))
+    .filter((v) => v !== null) as number[];
+  return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+}
+
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [winner, setWinner] = useState<SquareValue>(null);
+  const [score, setScore] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -19,6 +27,10 @@ export default function Game() {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
+
+    const w = calculateWinner(nextSquares);
+    if (w === "X") setScore((prev) => prev + 1);
+    setWinner(w);
   }
 
   function jumpTo(nextMove: number) {
@@ -34,6 +46,20 @@ export default function Game() {
       </li>
     );
   });
+
+  useEffect(() => {
+    if (!xIsNext && !winner && !isDraw(currentSquares)) {
+      const timer = setTimeout(() => {
+        const aiMove = getRandomMove(currentSquares);
+        if (aiMove !== undefined) {
+          const nextSquares = [...currentSquares];
+          nextSquares[aiMove] = "O";
+          handlePlay(nextSquares);
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [xIsNext, currentSquares, winner]);
 
   return (
     <div
@@ -93,6 +119,7 @@ export default function Game() {
               />
             </div>
             <div className="game__info">
+              <p className={"status"}>User Score: {score}</p>
               <ol className="game__move-list">{moves}</ol>
             </div>
           </div>
