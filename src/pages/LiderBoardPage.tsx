@@ -1,7 +1,15 @@
-import React from 'react'
+import Container from "@/components/Container/Container";
+import LeaderBoard from "@/components/LeaderBoard/LeaderBoard";
+import { players } from "@/data/playersData";
 
-export default function LiderBoardPage() {
+interface LeaderBoardPageProps {
+  name: string;
+}
+
+export default function LeaderBoardPage({ name }: LeaderBoardPageProps) {
   return (
-    <div>LiderBoardPage</div>
-  )
+    <Container name={name}>
+      <LeaderBoard players={players} />
+    </Container>
+  );
 }

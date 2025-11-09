@@ -8,7 +8,7 @@ import { usePersistedState } from "./hooks/usePersistedState";
 import LoginPage from "./pages/LoginPage";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
-import LiderBoardPage from "./pages/LiderBoardPage";
+import LeaderBoardPage from "./pages/LiderBoardPage";
 
 function App() {
   const [name, setName] = usePersistedState<string>("username", "");
@@ -23,7 +23,7 @@ function App() {
         />
         <Route path="/game" element={<GamePage name={name} />} />
         <Route path="/profile" element={<ProfilePage name={name} />} />
-        <Route path="/liderboard" element={<LiderBoardPage />} />
+        <Route path="/leaderboard" element={<LeaderBoardPage name={name}/>} />
         <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>
     </Router>

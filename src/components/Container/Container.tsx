@@ -39,10 +39,9 @@ const Header = ({ name }: HeaderProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // меню навигации
   const navItems = [
     { label: "Play", icon: <GamepadIcon />, path: "/game" },
-    { label: "Leaderboard", icon: <EmojiEventsIcon />, path: "/liderboard" },
+    { label: "Leaderboard", icon: <EmojiEventsIcon />, path: "/leaderboard" },
     { label: "Profile", icon: <AccountCircleIcon />, path: "/profile" },
     { label: "Exit", icon: <ExitToAppIcon />, path: "/login" },
   ];

@@ -8,7 +8,7 @@ interface ProfilePageProps {
 export default function ProfilePage({ name }: ProfilePageProps) {
   return (
     <div
-      className="login-page page-bg"
+      className="profile-page page-bg"
       style={{
         backgroundImage: "url('/img/profile-bg.jpg')",
       }}
