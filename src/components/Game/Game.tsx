@@ -36,7 +36,16 @@ export default function Game() {
   });
 
   return (
-    <div className="game">
+    <div
+      className="game"
+      style={{
+        backgroundImage: "url('/img/game-bg.jpg')",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <div className="container">
         <div className="game__wrapper">
           <h1 className="game__title">Nine Stones of Destiny</h1>

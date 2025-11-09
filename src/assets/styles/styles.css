@@ -312,7 +312,7 @@ h4 .h4 {
   }
 }
 .game__wrapper {
-  padding: 20px 10px;
+  padding: 100px 10px;
   background-color: var(--black-overlay);
   min-height: 100vh;
 }
