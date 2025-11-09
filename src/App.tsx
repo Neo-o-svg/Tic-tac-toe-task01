@@ -22,7 +22,7 @@ function App() {
           element={<LoginPage name={name} setName={setName} />}
         />
         <Route path="/game" element={<GamePage name={name} />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<ProfilePage name={name} />} />
         <Route path="/liderboard" element={<LiderBoardPage />} />
         <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>

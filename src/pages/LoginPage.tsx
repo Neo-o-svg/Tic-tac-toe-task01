@@ -11,15 +11,9 @@ interface LoginPageProps {
 export default function LoginPage({name, setName}: LoginPageProps) {
   return (
     <div
-      className="login-page"
+      className="login-page page-bg"
       style={{
         backgroundImage: "url('/img/login-bg.jpg')",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center center",
-        backgroundAttachment: "fixed",
-        height: "100vh",
-        overflowX: "hidden",
       }}
     >
       <LoginForm name={name} setName={setName} />

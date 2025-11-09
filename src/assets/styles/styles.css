@@ -133,6 +133,7 @@ svg * {
   --gray-400: #d7dadd;
   --gray-300: #e5e8ed;
   --gray-200: #f4f5f6;
+  --gray-7: #121212;
   --orange: #ff5a30;
   --warning: #f89828;
   --pink: #f52f6e;
@@ -197,6 +198,14 @@ body {
   line-height: 1.28;
   color: var(--white);
   height: 100%;
+  overflow-x: hidden;
+}
+
+.page-bg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   overflow-x: hidden;
 }
 
