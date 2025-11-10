@@ -6,45 +6,16 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
-import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
-import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied";
-import React from "react";
+
 
 interface ProfileProps {
   avatarUrl: string;
   name: string;
-  registrationDate: string;
-  points: number;
-  totalGames: number;
-  losses: number;
 }
-
-interface StatRowProps {
-  icon: React.ReactNode;
-  label: string;
-  value: number | string;
-}
-
-const StatRow = ({ icon, label, value }: StatRowProps) => (
-  <Stack direction="row" alignItems="center" justifyContent="space-between">
-    <Box display="flex" alignItems="center" gap={1}>
-      {icon}
-      <Typography color="var(--gray-400)">{label}</Typography>
-    </Box>
-    <Typography fontWeight="bold" color="var(--white)">
-      {value}
-    </Typography>
-  </Stack>
-);
 
 export default function Profile({
   avatarUrl,
   name,
-  registrationDate,
-  points,
-  totalGames,
-  losses,
 }: ProfileProps) {
   return (
     <Box
@@ -80,34 +51,8 @@ export default function Profile({
             </Typography>
 
             <Typography variant="body2" color="var(--gray-600)">
-              Registered: {registrationDate}
+              Hello new player, have a nice game here !!!
             </Typography>
-
-            <Box mt={3} width="100%">
-              <Stack spacing={2}>
-                <StatRow
-                  icon={
-                    <EmojiEventsIcon sx={{ color: "var(--yellow-orange)" }} />
-                  }
-                  label="Points:"
-                  value={points}
-                />
-                <StatRow
-                  icon={<SportsEsportsIcon sx={{ color: "var(--blue)" }} />}
-                  label="Total games:"
-                  value={totalGames}
-                />
-                <StatRow
-                  icon={
-                    <SentimentVeryDissatisfiedIcon
-                      sx={{ color: "var(--red)" }}
-                    />
-                  }
-                  label="Losses:"
-                  value={losses}
-                />
-              </Stack>
-            </Box>
           </Stack>
         </CardContent>
       </Card>

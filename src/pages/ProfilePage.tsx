@@ -17,10 +17,6 @@ export default function ProfilePage({ name }: ProfilePageProps) {
         <Profile
           avatarUrl="/img/profile.jpg"
           name={name}
-          registrationDate="2025-11-09"
-          points={1200}
-          totalGames={87}
-          losses={15}
         />
       </Container>
     </div>

@@ -20,7 +20,6 @@ import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
-
 interface LoginFormProps {
   name: string;
   setName: (value: string) => void;
@@ -49,7 +48,7 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
     event.preventDefault();
 
     setName(name);
-    navigate("/game")
+    navigate("/game");
   };
 
   return (
@@ -74,6 +73,7 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
             fullWidth
             required
             autoFocus
+            autoComplete="off"
             color="secondary"
             sx={{ mb: 2 }}
             onChange={(e) => setName(e.target.value)}
@@ -85,6 +85,7 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
             <OutlinedInput
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
               endAdornment={
                 <>
                   <IconButton
@@ -119,13 +120,6 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
             Sign in
           </Button>
         </Box>
-        <Grid container justifyContent="space-between" sx={{ mt: 1 }}>
-          <Grid>
-            <Link underline="hover" variant="body2">
-              Forgot password?
-            </Link>
-          </Grid>
-        </Grid>
       </Paper>
     </Container>
   );
