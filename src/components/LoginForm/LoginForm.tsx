@@ -6,29 +6,40 @@ import {
   Container,
   FormControl,
   FormControlLabel,
+  FormHelperText,
   IconButton,
   InputLabel,
-  Link,
   OutlinedInput,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { useState } from "react";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, WrapText } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 interface LoginFormProps {
   name: string;
+  password: string;
   setName: (value: string) => void;
+  setPassword: (value: string) => void;
 }
 
-export default function LoginForm({ name, setName }: LoginFormProps) {
+export default function LoginForm({
+  name,
+  password,
+  setName,
+  setPassword,
+}: LoginFormProps) {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const [errors, setErrors] = useState({
+    name: false,
+    password: false,
+  });
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -47,8 +58,19 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setName(name);
-    navigate("/game");
+    const nameError = name.trim().length < 5;
+    const passwordError = password.trim().length < 5;
+
+    setErrors({ name: nameError, password: passwordError });
+    console.log("Name:", name);
+    console.log("Password:", password);
+    console.log("Errors:", { nameError, passwordError });
+
+    if (!nameError && !passwordError) {
+      setName(name);
+      setPassword(password);
+      navigate("/game");
+    }
   };
 
   return (
@@ -67,6 +89,19 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
         <Typography component="h1" variant="h5" sx={{ textAlign: "center" }}>
           Sign In
         </Typography>
+        <Typography
+          variant="caption"
+          gutterBottom
+          sx={{
+            display: "block",
+            color: "var(--gray-800)",
+            fontWeight: "300",
+            fontStyle: "italic",
+            mt: 2,
+          }}
+        >
+          * max length: 15 (for all inputs)
+        </Typography>
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             label="Enter username"
@@ -74,11 +109,27 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
             required
             autoFocus
             autoComplete="off"
+            error={errors.name}
+            helperText={
+              errors.name ? "Username must be at least 5 characters long." : ""
+            }
             color="secondary"
             sx={{ mb: 2 }}
-            onChange={(e) => setName(e.target.value)}
+            slotProps={{ htmlInput: { maxLength: 15 } }}
+            onChange={(e) => {
+              setName(e.target.value);
+              if (e.target.value.trim().length >= 5) {
+                setErrors((prev) => ({ ...prev, name: false }));
+              }
+            }}
           />
-          <FormControl variant="outlined" required fullWidth color="secondary">
+          <FormControl
+            variant="outlined"
+            required
+            fullWidth
+            color="secondary"
+            error={errors.password}
+          >
             <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
@@ -86,6 +137,15 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
               autoComplete="new-password"
+              inputProps={{
+                maxLength: 15,
+              }}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (e.target.value.trim().length >= 5) {
+                  setErrors((prev) => ({ ...prev, password: false }));
+                }
+              }}
               endAdornment={
                 <>
                   <IconButton
@@ -105,6 +165,11 @@ export default function LoginForm({ name, setName }: LoginFormProps) {
               }
               label="Password"
             />
+            <FormHelperText>
+              {errors.password
+                ? "Password must be at least 5 characters long."
+                : ""}
+            </FormHelperText>
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
