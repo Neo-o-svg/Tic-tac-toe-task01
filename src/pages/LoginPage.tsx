@@ -2,13 +2,17 @@ import LoginForm from "../components/LoginForm/LoginForm";
 
 interface LoginPageProps {
   name: string;
+  password: string;
   setName: (value: string) => void;
+  setPassword: (value: string) => void;
 }
 
-
-
-
-export default function LoginPage({name, setName}: LoginPageProps) {
+export default function LoginPage({
+  name,
+  password,
+  setName,
+  setPassword,
+}: LoginPageProps) {
   return (
     <div
       className="login-page page-bg"
@@ -16,7 +20,12 @@ export default function LoginPage({name, setName}: LoginPageProps) {
         backgroundImage: "url('/img/login-bg.jpg')",
       }}
     >
-      <LoginForm name={name} setName={setName} />
+      <LoginForm
+        name={name}
+        password={password}
+        setName={setName}
+        setPassword={setPassword}
+      />
     </div>
   );
 }

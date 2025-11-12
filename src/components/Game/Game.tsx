@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Board, { calculateWinner } from "../Board/Board";
 import type { SquareValue } from "../Square/Square";
+import type { UserStats } from "@/App";
+import { Box, Button } from "@mui/material";
 
 function isDraw(squares: SquareValue[]): boolean {
   return (
@@ -15,11 +17,15 @@ function getRandomMove(squares: SquareValue[]): number {
   return emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
 }
 
-export default function Game() {
+interface GameProps {
+  userStats: UserStats;
+  setUserStats: (stats: UserStats) => void;
+}
+
+export default function Game({ userStats, setUserStats }: GameProps) {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const [winner, setWinner] = useState<SquareValue>(null);
-  const [score, setScore] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -29,9 +35,34 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
 
     const w = calculateWinner(nextSquares);
-    if (w === "X") setScore((prev) => prev + 1);
+
+    if (w === "X") {
+      setUserStats({
+        ...userStats,
+        points: userStats.points + 1,
+        totalGames: userStats.totalGames + 1,
+      });
+    } else if (w === "O") {
+      setUserStats({
+        ...userStats,
+        losses: userStats.losses + 1,
+        totalGames: userStats.totalGames + 1,
+      });
+    } else if (isDraw(nextSquares)) {
+      setUserStats({
+        ...userStats,
+        totalGames: userStats.totalGames + 1,
+      });
+    }
+
     setWinner(w);
   }
+
+  const handleNewGame = () => {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+    setWinner(null);
+  };
 
   function jumpTo(nextMove: number) {
     setCurrentMove(nextMove);
@@ -109,6 +140,16 @@ export default function Game() {
             />
           </div>
 
+          {(winner || isDraw(currentSquares)) && (
+            <Box
+              sx={{ display: "flex", justifyContent: "center", mt: 3, mb: 3 }}
+            >
+              <Button onClick={handleNewGame} variant="contained" color="error">
+                Start New Game
+              </Button>
+            </Box>
+          )}
+
           <div className="game__content">
             <div className="game__board">
               <Board
@@ -119,7 +160,7 @@ export default function Game() {
               />
             </div>
             <div className="game__info">
-              <p className={"status"}>User Score: {score}</p>
+              <p className={"status"}>User Score: {userStats.points}</p>
               <ol className="game__move-list">{moves}</ol>
             </div>
           </div>

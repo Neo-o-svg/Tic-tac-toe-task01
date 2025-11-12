@@ -24,9 +24,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 interface HeaderProps {
   name: string;
+  onExit: () => void;
 }
 
-const Header = ({ name }: HeaderProps) => {
+const Header = ({ name, onExit }: HeaderProps) => {
   const [elevated, setElevated] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
@@ -47,6 +48,9 @@ const Header = ({ name }: HeaderProps) => {
   ];
 
   const handleNavigate = (path: string) => {
+    if (path === "/login") {
+      onExit();
+    }
     navigate(path);
     setDrawerOpen(false);
   };
@@ -135,13 +139,14 @@ const Header = ({ name }: HeaderProps) => {
 };
 interface ContainerProps {
   name: string;
+  onExit: () => void;
   children?: ReactNode;
 }
 
-export default function Container({ name, children }: ContainerProps) {
+export default function Container({ name, children, onExit }: ContainerProps) {
   return (
     <div className="wrapper">
-      <Header name={name} />
+      <Header name={name} onExit={onExit} />
       <main>{children}</main>
     </div>
   );

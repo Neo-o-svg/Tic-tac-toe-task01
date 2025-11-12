@@ -131,7 +131,8 @@
   list-style: none;
 
   & li {
-    & button {
+    & button
+    {
       position: relative;
       display: inline-block;
       padding: 0.7em 2.2em;
