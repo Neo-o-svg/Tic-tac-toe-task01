@@ -1,3 +1,4 @@
+import type { UserStats } from "@/App";
 import {
   Avatar,
   Box,
@@ -7,16 +8,13 @@ import {
   Stack,
 } from "@mui/material";
 
-
 interface ProfileProps {
   avatarUrl: string;
   name: string;
+  userStats: UserStats;
 }
 
-export default function Profile({
-  avatarUrl,
-  name,
-}: ProfileProps) {
+export default function Profile({ avatarUrl, name, userStats }: ProfileProps) {
   return (
     <Box
       display="flex"
