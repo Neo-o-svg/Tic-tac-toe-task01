@@ -2,10 +2,8 @@ import {
   Avatar,
   Box,
   Button,
-  Checkbox,
   Container,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   IconButton,
   InputLabel,
@@ -16,7 +14,7 @@ import {
 } from "@mui/material";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { useState } from "react";
-import { Visibility, VisibilityOff, WrapText } from "@mui/icons-material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 interface LoginFormProps {
@@ -168,10 +166,6 @@ export default function LoginForm({
                 : ""}
             </FormHelperText>
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="secondary" />}
-            label={"Remember me"}
-          />
           <Button
             type="submit"
             variant="contained"
