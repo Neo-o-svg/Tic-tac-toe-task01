@@ -168,10 +168,6 @@ export default function LoginForm({
                 : ""}
             </FormHelperText>
           </FormControl>
-          <FormControlLabel
-            control={<Checkbox value="remember" color="secondary" />}
-            label={"Remember me"}
-          />
           <Button
             type="submit"
             variant="contained"
