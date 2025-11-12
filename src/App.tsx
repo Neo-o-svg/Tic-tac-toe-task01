@@ -9,6 +9,8 @@ import LoginPage from "./pages/LoginPage";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
 import LeaderBoardPage from "./pages/LiderBoardPage";
+import { addPlayer } from "./data/playersData";
+import { useEffect } from "react";
 
 export interface UserStats {
   name: string;
@@ -21,11 +23,17 @@ function App() {
   const [name, setName] = usePersistedState<string>("username", "");
   const [password, setPassword] = usePersistedState<string>("password", "");
   const [userStats, setUserStats] = usePersistedState<UserStats>("userStats", {
-    name: name || "Guest",
+    name: name || "",
     points: 0,
     totalGames: 0,
     losses: 0,
   });
+
+  useEffect(() => {
+    if (userStats.name) {
+      addPlayer(userStats);
+    }
+  }, [userStats]);
 
   const handleExit = () => {
     localStorage.removeItem("username");
@@ -50,10 +58,26 @@ function App() {
             />
           }
         />
-        <Route path="/game" element={<GamePage name={name} />} />
+        <Route
+          path="/game"
+          element={
+            <GamePage
+              name={name}
+              onExit={handleExit}
+              userStats={userStats}
+              setUserStats={setUserStats}
+            />
+          }
+        />
         <Route
           path="/profile"
-          element={<ProfilePage name={name} onExit={handleExit} />}
+          element={
+            <ProfilePage
+              name={name}
+              onExit={handleExit}
+              userStats={userStats}
+            />
+          }
         />
         <Route path="/leaderboard" element={<LeaderBoardPage name={name} />} />
         <Route path="*" element={<h1>404: Page Not Found</h1>} />

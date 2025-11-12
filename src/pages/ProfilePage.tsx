@@ -24,7 +24,9 @@ export default function ProfilePage({
         <Profile
           avatarUrl="/img/profile.jpg"
           name={name}
-          userStats={userStats}
+          points={userStats.points}
+          totalGames={userStats.totalGames}
+          losses={userStats.losses}
         />
       </Container>
     </div>

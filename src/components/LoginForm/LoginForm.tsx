@@ -62,9 +62,6 @@ export default function LoginForm({
     const passwordError = password.trim().length < 5;
 
     setErrors({ name: nameError, password: passwordError });
-    console.log("Name:", name);
-    console.log("Password:", password);
-    console.log("Errors:", { nameError, passwordError });
 
     if (!nameError && !passwordError) {
       setName(name);

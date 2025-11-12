@@ -5,6 +5,7 @@ export interface Player {
   losses: number;
 }
 
+
 export const players: Player[] = [
   { name: "Yoo Joonghyuk", points: 1200, totalGames: 87, losses: 15 },
   { name: "Kim Dokja", points: 1100, totalGames: 75, losses: 20 },
@@ -14,5 +15,16 @@ export const players: Player[] = [
   { name: "Choi Jiho", points: 800, totalGames: 45, losses: 18 },
   { name: "Seo Yeji", points: 780, totalGames: 40, losses: 8 },
   { name: "Jang Sungkyu", points: 750, totalGames: 35, losses: 12 },
-  { name: "Han Seokmin", points: 700, totalGames: 30, losses: 10 },
 ];
+
+
+export function addPlayer(player: Player) {
+  const existingIndex = players.findIndex(p => p.name === player.name);
+  if (existingIndex >= 0) {
+    players[existingIndex] = player;
+  } else {
+    players.push(player);
+  }
+
+  players.sort((a, b) => b.points - a.points);
+}
