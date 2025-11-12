@@ -24,7 +24,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 interface HeaderProps {
   name: string;
-  onExit: () => void;
+  onExit?: () => void;
 }
 
 const Header = ({ name, onExit }: HeaderProps) => {
@@ -48,7 +48,7 @@ const Header = ({ name, onExit }: HeaderProps) => {
   ];
 
   const handleNavigate = (path: string) => {
-    if (path === "/login") {
+    if (path === "/login" && onExit) {
       onExit();
     }
     navigate(path);
