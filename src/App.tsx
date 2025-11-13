@@ -8,8 +8,8 @@ import { usePersistedState } from "./hooks/usePersistedState";
 import LoginPage from "./pages/LoginPage";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
-import LeaderBoardPage from "./pages/LiderBoardPage";
-import { addPlayer } from "./data/playersData";
+import LeaderBoardPage from "./pages/LeaderBoardPage";
+import { addPlayer, removePlayer } from "./data/playersData";
 import { useEffect } from "react";
 
 export interface UserStats {
@@ -36,11 +36,22 @@ function App() {
   }, [userStats]);
 
   const handleExit = () => {
+    if (userStats.name) {
+      removePlayer(userStats.name);
+    }
+
     localStorage.removeItem("username");
     localStorage.removeItem("password");
     localStorage.removeItem("userStats");
+
     setName("");
     setPassword("");
+    setUserStats({
+      name: "",
+      points: 0,
+      totalGames: 0,
+      losses: 0,
+    });
   };
 
   return (
