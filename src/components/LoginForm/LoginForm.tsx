@@ -13,15 +13,17 @@ import {
   Typography,
 } from "@mui/material";
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import type { UserStats } from "@/App";
 
 interface LoginFormProps {
   name: string;
   password: string;
   setName: (value: string) => void;
   setPassword: (value: string) => void;
+  setUserStats: (stats: UserStats) => void;
 }
 
 export default function LoginForm({
@@ -29,6 +31,7 @@ export default function LoginForm({
   password,
   setName,
   setPassword,
+  setUserStats,
 }: LoginFormProps) {
   const navigate = useNavigate();
 
@@ -38,6 +41,16 @@ export default function LoginForm({
     name: false,
     password: false,
   });
+
+  const [firstVisit, setFirstVisit] = useState(true);
+
+  useEffect(() => {
+    if (firstVisit) {
+      setName("");
+      setPassword("");
+      setFirstVisit(false);
+    }
+  }, [firstVisit, setName, setPassword]);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -64,6 +77,10 @@ export default function LoginForm({
     if (!nameError && !passwordError) {
       setName(name);
       setPassword(password);
+      setUserStats((prev) => ({
+        ...prev,
+        name: name,
+      }));
       navigate("/game");
     }
   };
@@ -104,18 +121,31 @@ export default function LoginForm({
             required
             autoFocus
             autoComplete="off"
+            value={name}
             error={errors.name}
             helperText={
-              errors.name ? "Username must be at least 5 characters long." : ""
+              errors.name
+                ? name.trim().length < 5
+                  ? "Username must be at least 5 characters long."
+                  : "This username is not allowed."
+                : ""
             }
             color="secondary"
             sx={{ mb: 2 }}
             slotProps={{ htmlInput: { maxLength: 15 } }}
             onChange={(e) => {
-              setName(e.target.value);
-              if (e.target.value.trim().length >= 5) {
-                setErrors((prev) => ({ ...prev, name: false }));
-              }
+              const value = e.target.value.trim();
+              setName(value);
+
+              const tooShort = value.length < 5;
+              const isAdminVariant = value
+                .toLocaleLowerCase()
+                .includes("admin");
+
+              setErrors((prev) => ({
+                ...prev,
+                name: tooShort || isAdminVariant,
+              }));
             }}
           />
           <FormControl
@@ -132,6 +162,7 @@ export default function LoginForm({
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
               autoComplete="new-password"
+              value={password}
               inputProps={{
                 maxLength: 15,
               }}
