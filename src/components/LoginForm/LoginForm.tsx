@@ -23,6 +23,7 @@ interface LoginFormProps {
   password: string;
   setName: (value: string) => void;
   setPassword: (value: string) => void;
+  userStats: UserStats;
   setUserStats: (stats: UserStats) => void;
 }
 
@@ -31,6 +32,7 @@ export default function LoginForm({
   password,
   setName,
   setPassword,
+  userStats,
   setUserStats,
 }: LoginFormProps) {
   const navigate = useNavigate();
@@ -77,10 +79,10 @@ export default function LoginForm({
     if (!nameError && !passwordError) {
       setName(name);
       setPassword(password);
-      setUserStats((prev) => ({
-        ...prev,
+      setUserStats({
+        ...userStats,
         name: name,
-      }));
+      });
       navigate("/game");
     }
   };

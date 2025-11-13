@@ -55,7 +55,8 @@ function App() {
               password={password}
               setName={setName}
               setPassword={setPassword}
-               setUserStats={setUserStats}
+              userStats={userStats}
+              setUserStats={setUserStats}
             />
           }
         />

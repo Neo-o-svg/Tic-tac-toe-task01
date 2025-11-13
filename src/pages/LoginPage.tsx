@@ -6,6 +6,7 @@ interface LoginPageProps {
   password: string;
   setName: (value: string) => void;
   setPassword: (value: string) => void;
+  userStats: UserStats;
   setUserStats: (stats: UserStats) => void;
 }
 
@@ -14,6 +15,7 @@ export default function LoginPage({
   password,
   setName,
   setPassword,
+  userStats,
   setUserStats,
 }: LoginPageProps) {
   return (
@@ -28,6 +30,7 @@ export default function LoginPage({
         password={password}
         setName={setName}
         setPassword={setPassword}
+        userStats={userStats}
         setUserStats={setUserStats}
       />
     </div>
