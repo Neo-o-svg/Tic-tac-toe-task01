@@ -64,6 +64,7 @@ export default function LoginForm({
     if (!nameError && !passwordError) {
       setName(name);
       setPassword(password);
+      console.log(name, password)
       navigate("/game");
     }
   };
