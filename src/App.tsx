@@ -28,10 +28,6 @@ export interface UserStats {
 }
 
 function App() {
-  useEffect(() => {
-    ensureStorageInitialized();
-  }, []);
-
   const [players, setPlayers] = useState<Player[]>(defaultPlayers);
 
   function addPlayer(player: Player) {
