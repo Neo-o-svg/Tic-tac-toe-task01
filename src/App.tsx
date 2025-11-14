@@ -11,7 +11,6 @@ import ProfilePage from "./pages/ProfilePage";
 import LeaderBoardPage from "./pages/LeaderBoardPage";
 import { useEffect, useState } from "react";
 import { defaultPlayers } from "./data/playersData";
-import { ensureStorageInitialized } from "./utils/storage";
 
 export interface Player {
   name: string;
