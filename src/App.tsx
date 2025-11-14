@@ -9,8 +9,15 @@ import LoginPage from "./pages/LoginPage";
 import GamePage from "./pages/GamePage";
 import ProfilePage from "./pages/ProfilePage";
 import LeaderBoardPage from "./pages/LeaderBoardPage";
-import { addPlayer, removePlayer } from "./data/playersData";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { defaultPlayers } from "./data/playersData";
+
+export interface Player {
+  name: string;
+  points: number;
+  totalGames: number;
+  losses: number;
+}
 
 export interface UserStats {
   name: string;
@@ -20,6 +27,29 @@ export interface UserStats {
 }
 
 function App() {
+  const [players, setPlayers] = useState<Player[]>(defaultPlayers);
+
+  function addPlayer(player: Player) {
+    let copy_players = [...players];
+    const index = copy_players.findIndex((p) => p.name === player.name);
+    if (index >= 0) {
+      copy_players[index] = player;
+    } else {
+      copy_players.push(player);
+    }
+    copy_players.sort((a, b) => b.points - a.points);
+    setPlayers(copy_players);
+  }
+
+  function removePlayer(name: string) {
+    let copy_players = [...players];
+    const index = copy_players.findIndex((p) => p.name === name);
+    if (index !== -1) {
+      copy_players.splice(index, 1);
+    }
+    setPlayers(copy_players);
+  }
+
   const [name, setName] = usePersistedState<string>("username", "");
   const [password, setPassword] = usePersistedState<string>("password", "");
   const [userStats, setUserStats] = usePersistedState<UserStats>("userStats", {
@@ -40,16 +70,21 @@ function App() {
       removePlayer(userStats.name);
     }
 
-    window.localStorage.clear()
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
+    localStorage.removeItem("userStats");
 
     setName("");
     setPassword("");
+
     setUserStats({
       name: "",
       points: 0,
       totalGames: 0,
       losses: 0,
     });
+
+    setPlayers(defaultPlayers);
   };
 
   return (
@@ -90,7 +125,10 @@ function App() {
             />
           }
         />
-        <Route path="/leaderboard" element={<LeaderBoardPage name={name} />} />
+        <Route
+          path="/leaderboard"
+          element={<LeaderBoardPage name={name} players={players} />}
+        />
         <Route path="*" element={<h1>404: Page Not Found</h1>} />
       </Routes>
     </Router>

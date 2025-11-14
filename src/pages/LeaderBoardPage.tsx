@@ -1,20 +1,13 @@
 import Container from "@/components/Container/Container";
 import LeaderBoard from "@/components/LeaderBoard/LeaderBoard";
-import { getPlayers } from "@/data/playersData";
-import { useState, useEffect } from "react";
+import type { Player } from "@/data/playersData";
 
 interface LeaderBoardPageProps {
   name: string;
+  players: Player[];
 }
 
-export default function LeaderBoardPage({ name }: LeaderBoardPageProps) {
-  const [players, setPlayers] = useState(getPlayers());
-
-  useEffect(() => {
-    const handleStorage = () => setPlayers(getPlayers());
-    window.addEventListener("storage", handleStorage);
-    return () => window.removeEventListener("storage", handleStorage);
-  }, []);
+export default function LeaderBoardPage({ name, players }: LeaderBoardPageProps) {
 
   return (
     <Container name={name}>
