@@ -40,9 +40,7 @@ function App() {
       removePlayer(userStats.name);
     }
 
-    localStorage.removeItem("username");
-    localStorage.removeItem("password");
-    localStorage.removeItem("userStats");
+    window.localStorage.clear()
 
     setName("");
     setPassword("");
