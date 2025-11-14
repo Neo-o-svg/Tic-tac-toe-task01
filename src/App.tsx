@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import LeaderBoardPage from "./pages/LeaderBoardPage";
 import { useEffect, useState } from "react";
 import { defaultPlayers } from "./data/playersData";
+import { ensureStorageInitialized } from "./utils/storage";
 
 export interface Player {
   name: string;
@@ -27,6 +28,10 @@ export interface UserStats {
 }
 
 function App() {
+  useEffect(() => {
+    ensureStorageInitialized();
+  }, []);
+
   const [players, setPlayers] = useState<Player[]>(defaultPlayers);
 
   function addPlayer(player: Player) {
@@ -69,6 +74,8 @@ function App() {
     if (userStats.name) {
       removePlayer(userStats.name);
     }
+
+    localStorage.clear();
 
     localStorage.removeItem("username");
     localStorage.removeItem("password");
